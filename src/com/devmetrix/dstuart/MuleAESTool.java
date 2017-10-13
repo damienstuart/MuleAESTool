@@ -1,8 +1,10 @@
 package com.devmetrix.dstuart;
 
 import java.awt.EventQueue;
+import java.awt.Image;
 
 import javax.swing.JFrame;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -72,6 +74,10 @@ public class MuleAESTool {
 		
 		char pwEchoChar;
 		
+	    ClassLoader cl = this.getClass().getClassLoader();
+	    ImageIcon programIcon = new ImageIcon(cl.getResource("MuleAES-logo.png"));
+	    frmMuleAesTool.setIconImage(programIcon.getImage());
+	    
 		MuleAES aes = new MuleAES();
 		
 		JButton btnQuit = new JButton("Quit");
@@ -157,6 +163,8 @@ public class MuleAESTool {
 		frmMuleAesTool.getContentPane().add(txtKey);
 		
 		btnEncrypt = new JButton("Encrypt");
+		Image e_img = new ImageIcon(this.getClass().getResource("/encrypt.png")).getImage();
+		btnEncrypt.setIcon(new ImageIcon(e_img));
 		btnEncrypt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -172,6 +180,8 @@ public class MuleAESTool {
 		frmMuleAesTool.getContentPane().add(btnEncrypt);
 		
 		btnDecrypt = new JButton("Decrypt");
+		Image d_img = new ImageIcon(this.getClass().getResource("/decrypt.png")).getImage();
+		btnDecrypt.setIcon(new ImageIcon(d_img));
 		btnDecrypt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
