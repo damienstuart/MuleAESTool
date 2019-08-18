@@ -74,8 +74,9 @@ public class MuleAESTool {
 		
 		char pwEchoChar;
 		
-	    ClassLoader cl = this.getClass().getClassLoader();
-	    ImageIcon programIcon = new ImageIcon(cl.getResource("MuleAES-logo.png"));
+	    //ClassLoader cl = this.getClass().getClassLoader();
+	    //ImageIcon programIcon = new ImageIcon(cl.getResource("MuleAES-logo.png"));
+	    ImageIcon programIcon = new ImageIcon(getClass().getResource("/res/MuleAES-logo.png"));
 	    frmMuleAesTool.setIconImage(programIcon.getImage());
 	    
 		MuleAES aes = new MuleAES();
@@ -163,7 +164,7 @@ public class MuleAESTool {
 		frmMuleAesTool.getContentPane().add(txtKey);
 		
 		btnEncrypt = new JButton("Encrypt");
-		Image e_img = new ImageIcon(this.getClass().getResource("/encrypt.png")).getImage();
+		Image e_img = new ImageIcon(getClass().getResource("/res/encrypt.png")).getImage();
 		btnEncrypt.setIcon(new ImageIcon(e_img));
 		btnEncrypt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -180,7 +181,7 @@ public class MuleAESTool {
 		frmMuleAesTool.getContentPane().add(btnEncrypt);
 		
 		btnDecrypt = new JButton("Decrypt");
-		Image d_img = new ImageIcon(this.getClass().getResource("/decrypt.png")).getImage();
+		Image d_img = new ImageIcon(getClass().getResource("/res/decrypt.png")).getImage();
 		btnDecrypt.setIcon(new ImageIcon(d_img));
 		btnDecrypt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -209,8 +210,9 @@ public class MuleAESTool {
 		frmMuleAesTool.getContentPane().add(btnClearAll);
 		
 		lblMessage = new JLabel("");
+		lblMessage.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMessage.setForeground(Color.RED);
-		lblMessage.setBounds(106, 115, 319, 16);
+		lblMessage.setBounds(116, 123, 319, 29);
 		frmMuleAesTool.getContentPane().add(lblMessage);
 		
 		JSeparator separator = new JSeparator();
