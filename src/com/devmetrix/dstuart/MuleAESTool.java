@@ -25,6 +25,8 @@ import javax.swing.JSeparator;
 import javax.swing.JCheckBox;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class MuleAESTool {
 
@@ -74,8 +76,6 @@ public class MuleAESTool {
 		
 		char pwEchoChar;
 		
-	    //ClassLoader cl = this.getClass().getClassLoader();
-	    //ImageIcon programIcon = new ImageIcon(cl.getResource("MuleAES-logo.png"));
 	    ImageIcon programIcon = new ImageIcon(getClass().getResource("/res/MuleAES-logo.png"));
 	    frmMuleAesTool.setIconImage(programIcon.getImage());
 	    
@@ -101,6 +101,13 @@ public class MuleAESTool {
 		frmMuleAesTool.getContentPane().add(lblEncryptedText);
 		
 		txtClearText = new JTextField();
+		txtClearText.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER)
+					btnEncrypt.doClick();
+			}
+		});
 		txtClearText.getDocument().addDocumentListener(new DocumentListener() {
 			public void changedUpdate(DocumentEvent e) {
 				checkBtnStates();
@@ -117,6 +124,13 @@ public class MuleAESTool {
 		txtClearText.setColumns(10);
 		
 		txtEncryptedText = new JTextField();
+		txtEncryptedText.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER)
+					btnDecrypt.doClick();
+			}
+		});
 		txtEncryptedText.getDocument().addDocumentListener(new DocumentListener() {
 			public void changedUpdate(DocumentEvent e) {
 				checkBtnStates();
