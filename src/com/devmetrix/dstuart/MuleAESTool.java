@@ -82,6 +82,7 @@ public class MuleAESTool {
 		MuleAES aes = new MuleAES();
 		
 		JButton btnQuit = new JButton("Quit");
+		btnQuit.setMnemonic('Q');
 		btnQuit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmMuleAesTool.dispose();
@@ -178,6 +179,7 @@ public class MuleAESTool {
 		frmMuleAesTool.getContentPane().add(txtKey);
 		
 		btnEncrypt = new JButton("Encrypt");
+		btnEncrypt.setMnemonic('E');
 		Image e_img = new ImageIcon(getClass().getResource("/res/encrypt.png")).getImage();
 		btnEncrypt.setIcon(new ImageIcon(e_img));
 		btnEncrypt.addActionListener(new ActionListener() {
@@ -195,6 +197,7 @@ public class MuleAESTool {
 		frmMuleAesTool.getContentPane().add(btnEncrypt);
 		
 		btnDecrypt = new JButton("Decrypt");
+		btnDecrypt.setMnemonic('D');
 		Image d_img = new ImageIcon(getClass().getResource("/res/decrypt.png")).getImage();
 		btnDecrypt.setIcon(new ImageIcon(d_img));
 		btnDecrypt.addActionListener(new ActionListener() {
@@ -212,6 +215,7 @@ public class MuleAESTool {
 		frmMuleAesTool.getContentPane().add(btnDecrypt);
 		
 		JButton btnClearAll = new JButton("Clear All");
+		btnClearAll.setMnemonic('C');
 		btnClearAll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				txtClearText.setText("");
@@ -234,6 +238,7 @@ public class MuleAESTool {
 		frmMuleAesTool.getContentPane().add(separator);
 		
 		JCheckBox chckbxShowKey = new JCheckBox("Show Key");
+		chckbxShowKey.setMnemonic('K');
 		chckbxShowKey.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				if (chckbxShowKey.isSelected())
