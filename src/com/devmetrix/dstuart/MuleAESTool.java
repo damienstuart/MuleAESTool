@@ -68,7 +68,7 @@ public class MuleAESTool {
 		frmMuleAesTool.getContentPane().setFocusTraversalPolicyProvider(true);
 		frmMuleAesTool.setResizable(false);
 		frmMuleAesTool.setTitle("Mule AES Tool");
-		frmMuleAesTool.setBounds(100, 100, 572, 182);
+		frmMuleAesTool.setBounds(100, 100, 580, 200);
 		frmMuleAesTool.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmMuleAesTool.getContentPane().setLayout(null);
 		
