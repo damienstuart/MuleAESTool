@@ -3,30 +3,71 @@ package com.devmetrix.dstuart;
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+import java.security.SecureRandom;
+import java.util.Arrays;
 import java.util.Base64;
 
 public class MuleAES {
-    public String encrypt(String key, String value) throws Exception {
-    	String initVector = key;
-        IvParameterSpec iv = new IvParameterSpec(initVector.getBytes("UTF-8"));
+
+	public String encrypt(String key, String value) throws Exception {
+		return _encrypt(key, value, true);
+	}
+
+	public String encrypt(String key, String value, boolean noSalt) throws Exception {
+		return _encrypt(key, value, noSalt);
+	}
+	
+	private String _encrypt(String key, String value, boolean noSalt) throws Exception {
+		byte[] salt;
+		
+		if (noSalt) {
+			salt = key.getBytes();
+		} else {
+			SecureRandom sr = SecureRandom.getInstanceStrong();
+	        salt = new byte[16];
+	        sr.nextBytes(salt);
+		}
+
+        IvParameterSpec iv = new IvParameterSpec(salt);
         SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes("UTF-8"), "AES");
 
         Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
+
         cipher.init(Cipher.ENCRYPT_MODE, skeySpec, iv);
         byte[] encrypted = cipher.doFinal(value.getBytes());
 
-        return Base64.getEncoder().encodeToString(encrypted);
+        if (noSalt) {
+        	return Base64.getEncoder().encodeToString(encrypted);
+        }
+        
+        byte[] final_enc = new byte[ salt.length + encrypted.length ];
+        System.arraycopy(salt, 0, final_enc, 0, salt.length);
+        System.arraycopy(encrypted, 0, final_enc, salt.length, encrypted.length);
+
+        return Base64.getEncoder().encodeToString(final_enc);
     }
 
     public String decrypt(String key, String encrypted) throws Exception {
-    	String initVector = key;
-        IvParameterSpec iv = new IvParameterSpec(initVector.getBytes("UTF-8"));
+        String final_dec;
+        byte[] decoded = Base64.getDecoder().decode(encrypted);
+        byte[] salt = Arrays.copyOfRange(decoded, 0, 16);
+        byte[] encdata = Arrays.copyOfRange(decoded, salt.length, decoded.length);
+
+        IvParameterSpec iv = new IvParameterSpec(salt);
         SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes("UTF-8"), "AES");
 
         Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
-        cipher.init(Cipher.DECRYPT_MODE, skeySpec, iv);
-        byte[] original = cipher.doFinal(Base64.getDecoder().decode(encrypted));
 
-        return new String(original);
+        try {
+            cipher.init(Cipher.DECRYPT_MODE, skeySpec, iv);
+            final_dec = new String(cipher.doFinal(encdata));
+            if (final_dec.length() > 0)
+                return final_dec;
+        } catch (Exception ex) { }
+
+        iv = new IvParameterSpec(key.getBytes("UTF-8"));
+        cipher.init(Cipher.DECRYPT_MODE, skeySpec, iv);
+        final_dec = new String(cipher.doFinal(decoded));
+        return final_dec;
     }
 }

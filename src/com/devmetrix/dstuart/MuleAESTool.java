@@ -37,6 +37,7 @@ public class MuleAESTool {
 	private JLabel lblMessage;
 	private JButton btnEncrypt;
 	private JButton btnDecrypt;
+	private JCheckBox chkboxNoSalt;
 	
 	/**
 	 * Launch the application.
@@ -70,7 +71,7 @@ public class MuleAESTool {
 		frmMuleAesTool.getContentPane().setFocusTraversalPolicyProvider(true);
 		frmMuleAesTool.setResizable(false);
 		frmMuleAesTool.setTitle("Mule AES Tool");
-		frmMuleAesTool.setBounds(100, 100, 580, 200);
+		frmMuleAesTool.setBounds(100, 100, 580, 228);
 		frmMuleAesTool.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmMuleAesTool.getContentPane().setLayout(null);
 		
@@ -88,12 +89,12 @@ public class MuleAESTool {
 				frmMuleAesTool.dispose();
 			}
 		});
-		btnQuit.setBounds(443, 123, 117, 29);
+		btnQuit.setBounds(447, 150, 117, 29);
 		frmMuleAesTool.getContentPane().add(btnQuit);
 		
 		JLabel lblClearText = new JLabel("Clear Text:");
 		lblClearText.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblClearText.setBounds(10, 44, 105, 16);
+		lblClearText.setBounds(10, 47, 105, 16);
 		frmMuleAesTool.getContentPane().add(lblClearText);
 		
 		JLabel lblEncryptedText = new JLabel("Encrypted Text:");
@@ -120,7 +121,7 @@ public class MuleAESTool {
 				checkBtnStates();
 			}
 		});
-		txtClearText.setBounds(116, 39, 319, 26);
+		txtClearText.setBounds(116, 42, 319, 26);
 		frmMuleAesTool.getContentPane().add(txtClearText);
 		txtClearText.setColumns(10);
 		
@@ -179,13 +180,14 @@ public class MuleAESTool {
 		frmMuleAesTool.getContentPane().add(txtKey);
 		
 		btnEncrypt = new JButton("Encrypt");
+		btnEncrypt.setToolTipText("Encrypt the Clear Text");
 		btnEncrypt.setMnemonic('E');
 		Image e_img = new ImageIcon(getClass().getResource("/res/encrypt.png")).getImage();
 		btnEncrypt.setIcon(new ImageIcon(e_img));
 		btnEncrypt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					txtEncryptedText.setText(aes.encrypt(new String(txtKey.getPassword()), txtClearText.getText()));
+					txtEncryptedText.setText(aes.encrypt(new String(txtKey.getPassword()), txtClearText.getText(), chkboxNoSalt.isSelected()));
 					txtEncryptedText.requestFocusInWindow();
 					txtEncryptedText.selectAll();
 				} catch (Exception e1) {
@@ -193,10 +195,11 @@ public class MuleAESTool {
 				}
 			}
 		});
-		btnEncrypt.setBounds(443, 39, 117, 29);
+		btnEncrypt.setBounds(161, 150, 117, 29);
 		frmMuleAesTool.getContentPane().add(btnEncrypt);
 		
 		btnDecrypt = new JButton("Decrypt");
+		btnDecrypt.setToolTipText("Decrypt the Encryypted Text");
 		btnDecrypt.setMnemonic('D');
 		Image d_img = new ImageIcon(getClass().getResource("/res/decrypt.png")).getImage();
 		btnDecrypt.setIcon(new ImageIcon(d_img));
@@ -211,10 +214,11 @@ public class MuleAESTool {
 				}
 			}
 		});
-		btnDecrypt.setBounds(443, 75, 117, 29);
+		btnDecrypt.setBounds(290, 150, 117, 29);
 		frmMuleAesTool.getContentPane().add(btnDecrypt);
 		
 		JButton btnClearAll = new JButton("Clear All");
+		btnClearAll.setToolTipText("Clear all fields");
 		btnClearAll.setMnemonic('C');
 		btnClearAll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -224,20 +228,21 @@ public class MuleAESTool {
 				txtKey.requestFocusInWindow();
 			}
 		});
-		btnClearAll.setBounds(10, 123, 94, 29);
+		btnClearAll.setBounds(14, 150, 94, 29);
 		frmMuleAesTool.getContentPane().add(btnClearAll);
 		
 		lblMessage = new JLabel("");
 		lblMessage.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMessage.setForeground(Color.RED);
-		lblMessage.setBounds(116, 123, 319, 29);
+		lblMessage.setBounds(12, 105, 554, 26);
 		frmMuleAesTool.getContentPane().add(lblMessage);
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(0, 108, 572, 12);
+		separator.setBounds(5, 127, 572, 12);
 		frmMuleAesTool.getContentPane().add(separator);
 		
 		JCheckBox chckbxShowKey = new JCheckBox("Show Key");
+		chckbxShowKey.setToolTipText("Make the key text visible");
 		chckbxShowKey.setMnemonic('K');
 		chckbxShowKey.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
@@ -247,8 +252,14 @@ public class MuleAESTool {
 					txtKey.setEchoChar(pwEchoChar);
 			}
 		});
-		chckbxShowKey.setBounds(443, 7, 117, 23);
+		chckbxShowKey.setBounds(443, 7, 99, 23);
 		frmMuleAesTool.getContentPane().add(chckbxShowKey);
+		
+		chkboxNoSalt = new JCheckBox("No Salt");
+		chkboxNoSalt.setToolTipText("Do not use random salt value (not recommended)");
+		chkboxNoSalt.setMnemonic('N');
+		chkboxNoSalt.setBounds(443, 43, 87, 23);
+		frmMuleAesTool.getContentPane().add(chkboxNoSalt);
 		frmMuleAesTool.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{txtKey, txtClearText, btnEncrypt, txtEncryptedText, btnDecrypt, btnClearAll, btnQuit}));
 		
 		checkBtnStates();
