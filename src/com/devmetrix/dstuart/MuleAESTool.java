@@ -25,6 +25,8 @@ import javax.swing.JSeparator;
 import javax.swing.JCheckBox;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class MuleAESTool {
 
@@ -74,13 +76,13 @@ public class MuleAESTool {
 		
 		char pwEchoChar;
 		
-	    ClassLoader cl = this.getClass().getClassLoader();
-	    ImageIcon programIcon = new ImageIcon(cl.getResource("MuleAES-logo.png"));
+	    ImageIcon programIcon = new ImageIcon(getClass().getResource("/res/MuleAES-logo.png"));
 	    frmMuleAesTool.setIconImage(programIcon.getImage());
 	    
 		MuleAES aes = new MuleAES();
 		
 		JButton btnQuit = new JButton("Quit");
+		btnQuit.setMnemonic('Q');
 		btnQuit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmMuleAesTool.dispose();
@@ -100,6 +102,13 @@ public class MuleAESTool {
 		frmMuleAesTool.getContentPane().add(lblEncryptedText);
 		
 		txtClearText = new JTextField();
+		txtClearText.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER)
+					btnEncrypt.doClick();
+			}
+		});
 		txtClearText.getDocument().addDocumentListener(new DocumentListener() {
 			public void changedUpdate(DocumentEvent e) {
 				checkBtnStates();
@@ -116,6 +125,13 @@ public class MuleAESTool {
 		txtClearText.setColumns(10);
 		
 		txtEncryptedText = new JTextField();
+		txtEncryptedText.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER)
+					btnDecrypt.doClick();
+			}
+		});
 		txtEncryptedText.getDocument().addDocumentListener(new DocumentListener() {
 			public void changedUpdate(DocumentEvent e) {
 				checkBtnStates();
@@ -163,7 +179,8 @@ public class MuleAESTool {
 		frmMuleAesTool.getContentPane().add(txtKey);
 		
 		btnEncrypt = new JButton("Encrypt");
-		Image e_img = new ImageIcon(this.getClass().getResource("/encrypt.png")).getImage();
+		btnEncrypt.setMnemonic('E');
+		Image e_img = new ImageIcon(getClass().getResource("/res/encrypt.png")).getImage();
 		btnEncrypt.setIcon(new ImageIcon(e_img));
 		btnEncrypt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -180,7 +197,8 @@ public class MuleAESTool {
 		frmMuleAesTool.getContentPane().add(btnEncrypt);
 		
 		btnDecrypt = new JButton("Decrypt");
-		Image d_img = new ImageIcon(this.getClass().getResource("/decrypt.png")).getImage();
+		btnDecrypt.setMnemonic('D');
+		Image d_img = new ImageIcon(getClass().getResource("/res/decrypt.png")).getImage();
 		btnDecrypt.setIcon(new ImageIcon(d_img));
 		btnDecrypt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -197,6 +215,7 @@ public class MuleAESTool {
 		frmMuleAesTool.getContentPane().add(btnDecrypt);
 		
 		JButton btnClearAll = new JButton("Clear All");
+		btnClearAll.setMnemonic('C');
 		btnClearAll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				txtClearText.setText("");
@@ -209,8 +228,9 @@ public class MuleAESTool {
 		frmMuleAesTool.getContentPane().add(btnClearAll);
 		
 		lblMessage = new JLabel("");
+		lblMessage.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMessage.setForeground(Color.RED);
-		lblMessage.setBounds(106, 115, 319, 16);
+		lblMessage.setBounds(116, 123, 319, 29);
 		frmMuleAesTool.getContentPane().add(lblMessage);
 		
 		JSeparator separator = new JSeparator();
@@ -218,6 +238,7 @@ public class MuleAESTool {
 		frmMuleAesTool.getContentPane().add(separator);
 		
 		JCheckBox chckbxShowKey = new JCheckBox("Show Key");
+		chckbxShowKey.setMnemonic('K');
 		chckbxShowKey.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				if (chckbxShowKey.isSelected())

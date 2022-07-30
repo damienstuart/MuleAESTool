@@ -3,7 +3,7 @@ package com.devmetrix.dstuart;
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-import javax.xml.bind.DatatypeConverter;
+import java.util.Base64;
 
 public class MuleAES {
     public String encrypt(String key, String value) throws Exception {
@@ -15,7 +15,7 @@ public class MuleAES {
         cipher.init(Cipher.ENCRYPT_MODE, skeySpec, iv);
         byte[] encrypted = cipher.doFinal(value.getBytes());
 
-        return DatatypeConverter.printBase64Binary(encrypted);
+        return Base64.getEncoder().encodeToString(encrypted);
     }
 
     public String decrypt(String key, String encrypted) throws Exception {
@@ -25,7 +25,7 @@ public class MuleAES {
 
         Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
         cipher.init(Cipher.DECRYPT_MODE, skeySpec, iv);
-        byte[] original = cipher.doFinal(DatatypeConverter.parseBase64Binary(encrypted));
+        byte[] original = cipher.doFinal(Base64.getDecoder().decode(encrypted));
 
         return new String(original);
     }
