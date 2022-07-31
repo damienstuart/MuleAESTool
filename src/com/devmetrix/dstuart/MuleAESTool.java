@@ -70,8 +70,8 @@ public class MuleAESTool {
 		frmMuleAesTool = new JFrame();
 		frmMuleAesTool.getContentPane().setFocusTraversalPolicyProvider(true);
 		frmMuleAesTool.setResizable(false);
-		frmMuleAesTool.setTitle("Mule AES Tool");
-		frmMuleAesTool.setBounds(100, 100, 580, 228);
+		frmMuleAesTool.setTitle("MuleAES Tool");
+		frmMuleAesTool.setBounds(100, 100, 567, 220);
 		frmMuleAesTool.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmMuleAesTool.getContentPane().setLayout(null);
 		
@@ -89,17 +89,17 @@ public class MuleAESTool {
 				frmMuleAesTool.dispose();
 			}
 		});
-		btnQuit.setBounds(447, 150, 117, 29);
+		btnQuit.setBounds(433, 142, 105, 29);
 		frmMuleAesTool.getContentPane().add(btnQuit);
 		
 		JLabel lblClearText = new JLabel("Clear Text:");
 		lblClearText.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblClearText.setBounds(10, 47, 105, 16);
+		lblClearText.setBounds(5, 65, 105, 16);
 		frmMuleAesTool.getContentPane().add(lblClearText);
 		
 		JLabel lblEncryptedText = new JLabel("Encrypted Text:");
 		lblEncryptedText.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblEncryptedText.setBounds(10, 80, 105, 16);
+		lblEncryptedText.setBounds(5, 98, 105, 16);
 		frmMuleAesTool.getContentPane().add(lblEncryptedText);
 		
 		txtClearText = new JTextField();
@@ -121,7 +121,7 @@ public class MuleAESTool {
 				checkBtnStates();
 			}
 		});
-		txtClearText.setBounds(116, 42, 319, 26);
+		txtClearText.setBounds(111, 60, 319, 26);
 		frmMuleAesTool.getContentPane().add(txtClearText);
 		txtClearText.setColumns(10);
 		
@@ -145,12 +145,12 @@ public class MuleAESTool {
 			}
 		});
 		txtEncryptedText.setColumns(10);
-		txtEncryptedText.setBounds(116, 75, 319, 26);
+		txtEncryptedText.setBounds(111, 93, 319, 26);
 		frmMuleAesTool.getContentPane().add(txtEncryptedText);
 		
 		JLabel lblKey = new JLabel("Key:");
 		lblKey.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblKey.setBounds(10, 11, 105, 16);
+		lblKey.setBounds(5, 11, 105, 16);
 		frmMuleAesTool.getContentPane().add(lblKey);
 		
 		txtKey = new JPasswordField();
@@ -175,7 +175,7 @@ public class MuleAESTool {
 			}
 		});
 		txtKey.setColumns(10);
-		txtKey.setBounds(116, 6, 319, 26);
+		txtKey.setBounds(111, 6, 319, 26);
 		pwEchoChar = txtKey.getEchoChar();
 		frmMuleAesTool.getContentPane().add(txtKey);
 		
@@ -195,7 +195,7 @@ public class MuleAESTool {
 				}
 			}
 		});
-		btnEncrypt.setBounds(161, 150, 117, 29);
+		btnEncrypt.setBounds(433, 57, 100, 29);
 		frmMuleAesTool.getContentPane().add(btnEncrypt);
 		
 		btnDecrypt = new JButton("Decrypt");
@@ -214,7 +214,7 @@ public class MuleAESTool {
 				}
 			}
 		});
-		btnDecrypt.setBounds(290, 150, 117, 29);
+		btnDecrypt.setBounds(433, 90, 100, 29);
 		frmMuleAesTool.getContentPane().add(btnDecrypt);
 		
 		JButton btnClearAll = new JButton("Clear All");
@@ -228,13 +228,13 @@ public class MuleAESTool {
 				txtKey.requestFocusInWindow();
 			}
 		});
-		btnClearAll.setBounds(14, 150, 94, 29);
+		btnClearAll.setBounds(35, 142, 94, 29);
 		frmMuleAesTool.getContentPane().add(btnClearAll);
 		
 		lblMessage = new JLabel("");
 		lblMessage.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMessage.setForeground(Color.RED);
-		lblMessage.setBounds(12, 105, 554, 26);
+		lblMessage.setBounds(112, 105, 356, 26);
 		frmMuleAesTool.getContentPane().add(lblMessage);
 		
 		JSeparator separator = new JSeparator();
@@ -252,13 +252,13 @@ public class MuleAESTool {
 					txtKey.setEchoChar(pwEchoChar);
 			}
 		});
-		chckbxShowKey.setBounds(443, 7, 99, 23);
+		chckbxShowKey.setBounds(433, 4, 99, 23);
 		frmMuleAesTool.getContentPane().add(chckbxShowKey);
 		
 		chkboxNoSalt = new JCheckBox("No Salt");
 		chkboxNoSalt.setToolTipText("Do not use random salt value (not recommended)");
 		chkboxNoSalt.setMnemonic('N');
-		chkboxNoSalt.setBounds(443, 43, 87, 23);
+		chkboxNoSalt.setBounds(433, 32, 87, 23);
 		frmMuleAesTool.getContentPane().add(chkboxNoSalt);
 		frmMuleAesTool.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{txtKey, txtClearText, btnEncrypt, txtEncryptedText, btnDecrypt, btnClearAll, btnQuit}));
 		
