@@ -13,19 +13,19 @@ public class MuleAES {
 		return _encrypt(key, value, true);
 	}
 
-	public String encrypt(String key, String value, boolean noSalt) throws Exception {
-		return _encrypt(key, value, noSalt);
+	public String encrypt(String key, String value, boolean useRandomIV) throws Exception {
+		return _encrypt(key, value, useRandomIV);
 	}
 	
-	private String _encrypt(String key, String value, boolean noSalt) throws Exception {
+	private String _encrypt(String key, String value, boolean useRandomIV) throws Exception {
 		byte[] salt;
 		
-		if (noSalt) {
-			salt = key.getBytes();
-		} else {
+		if (useRandomIV) {
 			SecureRandom sr = SecureRandom.getInstanceStrong();
 	        salt = new byte[16];
 	        sr.nextBytes(salt);
+		} else {
+			salt = key.getBytes();
 		}
 
         IvParameterSpec iv = new IvParameterSpec(salt);
@@ -36,15 +36,14 @@ public class MuleAES {
         cipher.init(Cipher.ENCRYPT_MODE, skeySpec, iv);
         byte[] encrypted = cipher.doFinal(value.getBytes());
 
-        if (noSalt) {
-        	return Base64.getEncoder().encodeToString(encrypted);
+        if (useRandomIV) {
+	        byte[] final_enc = new byte[ salt.length + encrypted.length ];
+	        System.arraycopy(salt, 0, final_enc, 0, salt.length);
+	        System.arraycopy(encrypted, 0, final_enc, salt.length, encrypted.length);
+	        return Base64.getEncoder().encodeToString(final_enc);
         }
         
-        byte[] final_enc = new byte[ salt.length + encrypted.length ];
-        System.arraycopy(salt, 0, final_enc, 0, salt.length);
-        System.arraycopy(encrypted, 0, final_enc, salt.length, encrypted.length);
-
-        return Base64.getEncoder().encodeToString(final_enc);
+    	return Base64.getEncoder().encodeToString(encrypted);
     }
 
     public String decrypt(String key, String encrypted) throws Exception {
