@@ -78,9 +78,9 @@ public class MuleAESTool {
 		
 		char pwEchoChar;
 		
-	    ImageIcon programIcon = new ImageIcon(getClass().getResource("/res/MuleAES-logo.png"));
-	    frmMuleAesTool.setIconImage(programIcon.getImage());
-	    
+		ImageIcon programIcon = new ImageIcon(getClass().getResource("/res/MuleAES-logo.png"));
+		frmMuleAesTool.setIconImage(programIcon.getImage());
+	
 		MuleAES aes = new MuleAES();
 		
 		JButton btnQuit = new JButton("Quit");
@@ -207,7 +207,7 @@ public class MuleAESTool {
 		btnDecrypt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					txtClearText.setText(aes.decrypt(new String(txtKey.getPassword()), txtEncryptedText.getText()));
+					txtClearText.setText(aes.decrypt(new String(txtKey.getPassword()), txtEncryptedText.getText(), chkboxUseRandomIV.isSelected()));
 					txtClearText.requestFocusInWindow();
 					txtClearText.selectAll();
 				} catch (Exception e1) {

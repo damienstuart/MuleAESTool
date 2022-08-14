@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>MuleAESTool</groupId>
   <artifactId>MuleAESTool</artifactId>
-  <version>1.1.0</version>
+  <version>1.1.1</version>
   <name>MuleAESTool</name>
   <description>A utility for encryption/decryption of strings - compaitble with Mulesoft AES encryption.</description>
   <build>
