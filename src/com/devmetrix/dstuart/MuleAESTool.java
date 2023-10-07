@@ -235,7 +235,7 @@ public class MuleAESTool {
 		lblMessage = new JLabel("");
 		lblMessage.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMessage.setForeground(Color.RED);
-		lblMessage.setBounds(125, 142, 316, 26);
+		lblMessage.setBounds(135, 125, 316, 26);
 		frmMuleAesTool.getContentPane().add(lblMessage);
 		
 		JSeparator separator = new JSeparator();

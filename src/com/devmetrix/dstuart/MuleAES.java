@@ -8,13 +8,30 @@ import java.util.Arrays;
 import java.util.Base64;
 
 public class MuleAES {
+	private String _key;
+	
+	public MuleAES(String key) {
+		_key = key;
+	}
 
+	public MuleAES() {
+		_key = "";
+	}
+	
+	public String encrypt(String value) throws Exception {
+		return _encrypt(this._key, value, true);
+	}
+	
+	public String encrypt(String value, boolean useSalt) throws Exception {
+		return _encrypt(this._key, value, useSalt);
+	}
+	
     public String encrypt(String key, String value) throws Exception {
         return _encrypt(key, value, true);
     }
 
-    public String encrypt(String key, String value, boolean useRandomIV) throws Exception {
-        return _encrypt(key, value, useRandomIV);
+    public String encrypt(String key, String value, boolean useSalt) throws Exception {
+        return _encrypt(key, value, useSalt);
     }
 
     private String _encrypt(String key, String value, boolean useSalt) throws Exception {
@@ -46,7 +63,23 @@ public class MuleAES {
         return Base64.getEncoder().encodeToString(encrypted);
     }
 
+    public String decrypt(String value) throws Exception {
+		return _decrypt(this._key, value, true);
+	}
+	
+	public String decrypt(String value, boolean useSalt) throws Exception {
+		return _decrypt(this._key, value, useSalt);
+	}
+	
+    public String decrypt(String key, String encrypted) throws Exception {
+    	return _decrypt(key, encrypted, true);
+    }
+
     public String decrypt(String key, String encrypted, boolean useSalt) throws Exception {
+    	return _decrypt(key, encrypted, useSalt);
+    }
+
+    private String _decrypt(String key, String encrypted, boolean useSalt) throws Exception {
         String final_dec;
         IvParameterSpec iv;
 
